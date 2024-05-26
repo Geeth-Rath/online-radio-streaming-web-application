@@ -13,6 +13,8 @@ function FileSearch() {
             fill="red"
             class="bi bi-file-earmark-plus-fill cursor"
             viewBox="0 0 16 16"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
           >
             <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M8.5 7v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 1 0" />
           </svg>
@@ -85,16 +87,118 @@ function FileSearch() {
             </svg>
           </div>
         </div>
+      </div>
+      {/* ---------------------MODAL---------------------------- */}
+      <div
+        className="modal fade "
+        id="exampleModal"
+        tabIndex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog " role="document">
+          <div className="modal-content" id="customModal">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
+                Add New Song
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <form>
+                <div class="form-group  mt-4">
+                  <label
+                    for="formGroupExampleInput"
+                    className="d-flex fw-bold mb-1 "
+                  >
+                    Title
+                  </label>
+                  <input
+                    name="title"
+                    type="text"
+                    class="form-control "
+                    id="formGroupExampleInput"
+                    placeholder="Utopia"
+                  />
+                </div>
+                <div class="form-group  mt-4">
+                  <label
+                    for="formGroupExampleInput2"
+                    className="d-flex fw-bold mb-1"
+                  >
+                    Artist{" "}
+                  </label>
+                  <input
+                    name="artist"
+                    type="text"
+                    class="form-control fws-bold"
+                    id="formGroupExampleInput2"
+                    placeholder="Travis Scott"
+                  />
+                </div>
+                <div class="form-group mt-4">
+                  <label
+                    for="formGroupExampleInput2 "
+                    className="d-flex fw-bold mb-1"
+                  >
+                    Genre{" "}
+                  </label>
+                  <select
+                    class="form-select form-select mb-3 rounded"
+                    aria-label="Default select example"
+                    // value={category}
+                    style={{ width: "100%", marginBottom: "10px" }}
+                    // onChange={(value) => setCategory(value.target.value)}
+                  >
+                    <option selected value="Rock">
+                      Rock
+                    </option>
+                    <option value="Pop">Pop</option>
+                    <option value="Jazz">Jazz</option>
+                    <option value="Classical">Classical</option>
+                    <option value="Hip-Hop">Hip-Hop</option>
+                    <option value="Electronic">Electronic</option>
+                    <option value="Country">Country</option>
+                  </select>
+                </div>
 
-        {/* <div className="col-auto">
-       <button
-         type="button"
-         class="btn btn-primary"
-        //  onClick={handleSearchClick}
-       >
-         Search
-       </button> 
-     </div>*/}
+                <div class="input-group mb-3 mt-5  rounded d-flex justify-content-between ">
+                  <div class="custom-file  mb-4 ">
+                    <input
+                      type="file"
+                      class=" form-control custom-file-input "
+                      id="inputGroupFile02"
+                      accept="audio/*"
+                    />
+                  </div>
+                  <div class="input-group-append">
+                    <button type="button" class="btn btn-primary ">
+                      Upload
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-primary">
+                Save
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

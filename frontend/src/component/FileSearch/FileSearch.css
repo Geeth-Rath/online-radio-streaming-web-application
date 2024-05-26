@@ -1,4 +1,7 @@
-.input-search{
-    background-color: rgb(234, 233, 237);
-    /* border: none; */
+.input-search {
+  background-color: rgb(234, 233, 237);
+}
+
+#customModal {
+  background: linear-gradient(to bottom, rgb(105, 104, 104), rgb(52, 52, 52));
 }

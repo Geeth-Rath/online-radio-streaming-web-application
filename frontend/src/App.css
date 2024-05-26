@@ -1,19 +1,17 @@
 .App {
   text-align: center;
   color: rgb(255, 255, 255);
-  /* font-family: Verdana; */
   background: linear-gradient(to bottom, rgb(8, 8, 8), rgb(81, 79, 79));
-  
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-.cursor{
+.cursor {
   cursor: pointer;
 }
-.test{
+.test {
   background-color: red;
 }
 

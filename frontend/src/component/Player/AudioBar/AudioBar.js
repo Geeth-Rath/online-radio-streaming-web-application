@@ -1,8 +1,13 @@
-import React from "react";
-import radioParadiswe from "./radioParadiswe.jpeg";
+import React, { useState } from "react";
+import radioParadiswe from "../radioParadiswe.jpeg";
 import "./AudioBar.css";
 
 const AudioBar = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
   return (
     <div className="fixed-bottom container rounded">
       <div className="row  d-flex justify-content-center align-items-baseline ">
@@ -48,28 +53,33 @@ const AudioBar = () => {
           </div>
 
           <div className="col-auto">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="currentColor"
-              class="bi bi-caret-right-square-fill cursor  mx-2"
-              viewBox="0 0 16 16"
-            >
-              <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4z" />
-            </svg>
-          </div>
-          <div className="col-auto">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="currentColor"
-              class="bi bi-pause-fill cursor  mx-2"
-              viewBox="0 0 16 16"
-            >
-              <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5" />
-            </svg>
+            {isPlaying ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                class="bi bi-caret-right-square-fill cursor  mx-2"
+                viewBox="0 0 16 16"
+                onClick={togglePlayPause}
+                style={{ cursor: "pointer" }}
+              >
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4z" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                class="bi bi-pause-fill cursor  mx-2"
+                viewBox="0 0 16 16"
+                onClick={togglePlayPause}
+                style={{ cursor: "pointer" }}
+              >
+                <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5" />
+              </svg>
+            )}
           </div>
           <div className="col-auto">
             <svg

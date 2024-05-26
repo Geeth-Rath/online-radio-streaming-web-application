@@ -1,6 +1,6 @@
 import React,{useState} from "react";
-import radioParadiswe from "./radioParadiswe.jpeg";
-import tamilsong from "./tamilsong.mp3"
+import radioParadiswe from "../radioParadiswe.jpeg";
+import tamilsong from "../tamilsong.mp3"
 import ReactAudioPlayer from 'react-audio-player';
 import './AudioPlayer.css'
 
