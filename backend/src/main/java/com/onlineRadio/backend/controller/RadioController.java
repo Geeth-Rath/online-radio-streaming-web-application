@@ -28,27 +28,31 @@ public class RadioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Radio> getSongById(@PathVariable Integer id) {
+    public ResponseEntity<Radio> getRadioById(@PathVariable Integer id) {
         Optional<Radio> song = radioService.getRadioById(id);
         return song.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Radio> createSong(@RequestBody Radio radio) {
+    public ResponseEntity<Radio> createRadio(@RequestBody Radio radio) {
         Radio createdRadio = radioService.createRadio(radio);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRadio);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Radio> updateSong(@PathVariable Integer id, @RequestBody Radio radio) {
+    public ResponseEntity<Radio> updateRadio(@PathVariable Integer id, @RequestBody Radio radio) {
         Radio updatedRadio = radioService.updateRadio(id, radio);
         return updatedRadio != null ? ResponseEntity.ok(updatedRadio) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSong(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteSong(@PathVariable Integer id) {
         boolean deleted = radioService.deleteRadio(id);
-        return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        if (deleted) {
+            return ResponseEntity.ok("Successfully deleted");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/{id}/uploadImage")
