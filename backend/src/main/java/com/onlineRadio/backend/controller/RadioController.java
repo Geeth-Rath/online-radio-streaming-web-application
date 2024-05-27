@@ -3,6 +3,7 @@ package com.onlineRadio.backend.controller;
 import com.onlineRadio.backend.modal.Radio;
 import com.onlineRadio.backend.service.RadioService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,7 +47,7 @@ public class RadioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteSong(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteRadio(@PathVariable Integer id) {
         boolean deleted = radioService.deleteRadio(id);
         if (deleted) {
             return ResponseEntity.ok("Successfully deleted");
@@ -54,9 +55,17 @@ public class RadioController {
             return ResponseEntity.notFound().build();
         }
     }
-
     @PostMapping("/{id}/uploadImage")
     public ResponseEntity<Radio> uploadImage(@PathVariable Integer id, @RequestParam("file") MultipartFile file) {
+        // Check the file type
+        String fileType = file.getContentType();
+        if (fileType == null ||
+                !(fileType.equals(MediaType.IMAGE_JPEG_VALUE) ||
+                        fileType.equals(MediaType.IMAGE_PNG_VALUE) ||
+                        fileType.equals("image/jpg"))) {
+            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(null);
+        }
+
         try {
             Radio radio = radioService.uploadImage(id, file);
             return ResponseEntity.ok(radio);
@@ -64,4 +73,24 @@ public class RadioController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @PutMapping("/{id}/updateImage")
+    public ResponseEntity<Radio> updateImage(@PathVariable Integer id, @RequestParam("file") MultipartFile file) {
+        // Check the file type
+        String fileType = file.getContentType();
+        if (fileType == null ||
+                !(fileType.equals(MediaType.IMAGE_JPEG_VALUE) ||
+                        fileType.equals(MediaType.IMAGE_PNG_VALUE) ||
+                        fileType.equals("image/jpg"))) {
+            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(null);
+        }
+
+        try {
+            Radio radio = radioService.updateImage(id, file);
+            return ResponseEntity.ok(radio);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

@@ -56,7 +56,7 @@ public class RadioService {
     }
 
     public Radio uploadImage(Integer radioId, MultipartFile file) throws IOException {
-        Radio radio = radioRepository.findById(radioId).orElseThrow(() -> new RuntimeException("Song not found"));
+        Radio radio = radioRepository.findById(radioId).orElseThrow(() -> new RuntimeException("Radio not found"));
         Image image = new Image();
         image.setFileName(file.getOriginalFilename());
         image.setFileType(file.getContentType());
@@ -66,4 +66,24 @@ public class RadioService {
         radio.setImage(image);
         return radioRepository.save(radio);
     }
+
+    public Radio updateImage(Integer radioId, MultipartFile file) throws IOException {
+        Radio radio = radioRepository.findById(radioId).orElseThrow(() -> new RuntimeException("Radio not found"));
+
+        Image existingImage = radio.getImage();
+        if (existingImage != null) {
+            imageRepository.delete(existingImage);
+        }
+
+        Image newImage = new Image();
+        newImage.setFileName(file.getOriginalFilename());
+        newImage.setFileType(file.getContentType());
+        newImage.setData(file.getBytes());
+        imageRepository.save(newImage);
+
+
+        radio.setImage(newImage);
+        return radioRepository.save(radio);
+    }
+
 }

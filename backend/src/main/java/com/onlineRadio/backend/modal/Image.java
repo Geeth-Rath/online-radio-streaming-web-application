@@ -23,7 +23,7 @@ public class Image {
     private String fileType;
 
     @Lob
-    @Column(name = "data", nullable = false)
+    @Column(columnDefinition = "LONGBLOB" ,name = "data", nullable = false)
     private byte[] data;
 
     @OneToOne(mappedBy = "image")
