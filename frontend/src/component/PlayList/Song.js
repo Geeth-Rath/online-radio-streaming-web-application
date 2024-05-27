@@ -15,7 +15,7 @@ const Song = () => {
     <div className="container pt-5 pb-4">
       <div className="row d-flex align-items-baseline">
         <div className="col-auto d-flex justify-content-start align-items-center">
-          <h5 className="fw-bold">Songs</h5>
+          <h5 className="fw-bold">Stations</h5>
         </div>
         <div className="col d-block d-sm-none d-flex align-items-center">
           <svg
@@ -130,7 +130,7 @@ const Song = () => {
           <div className="modal-dialog " role="document">
             <div className="modal-content pt-4" id="customModal">
               <div className="modal-body">
-                <h5>Do you want to delete "Utopia" song ?</h5>
+                <h5>Do you want to delete "Utopia" Station ?</h5>
               </div>
               <div className="modal-footer">
                 <button

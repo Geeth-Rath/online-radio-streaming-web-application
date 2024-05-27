@@ -112,7 +112,7 @@ const Favorite = () => {
           <div className="modal-content" id="customModal">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
-                Update the song
+                Update Radio Station
               </h5>
               <button
                 type="button"
@@ -128,10 +128,10 @@ const Favorite = () => {
                     for="formGroupExampleInput"
                     className="d-flex fw-bold mb-1 "
                   >
-                    Title
+                    Programme
                   </label>
                   <input
-                    name="title"
+                    name="programme"
                     type="text"
                     class="form-control "
                     id="formGroupExampleInput"
@@ -143,62 +143,61 @@ const Favorite = () => {
                     for="formGroupExampleInput2"
                     className="d-flex fw-bold mb-1"
                   >
-                    Artist{" "}
+                    Radio Station{" "}
                   </label>
                   <input
-                    name="artist"
+                    name="radioStation"
                     type="text"
                     class="form-control fws-bold"
                     id="formGroupExampleInput2"
-                    placeholder="Travis Scott"
+                    placeholder="Freshco Fm"
                   />
                 </div>
-                <div class="form-group mt-4">
+                <div class="form-group mt-4"></div>
+                <div class="form-group  mt-4">
                   <label
-                    for="formGroupExampleInput2 "
+                    for="formGroupExampleInput2"
                     className="d-flex fw-bold mb-1"
                   >
-                    Genre{" "}
+                    Radio Url{" "}
                   </label>
-                  <select
-                    class="form-select form-select mb-3 rounded"
-                    aria-label="Default select example"
-                    // value={category}
-                    style={{ width: "100%", marginBottom: "10px" }}
-                    // onChange={(value) => setCategory(value.target.value)}
-                  >
-                    <option selected value="Rock">
-                      Rock
-                    </option>
-                    <option value="Pop">Pop</option>
-                    <option value="Jazz">Jazz</option>
-                    <option value="Classical">Classical</option>
-                    <option value="Hip-Hop">Hip-Hop</option>
-                    <option value="Electronic">Electronic</option>
-                    <option value="Country">Country</option>
-                  </select>
+                  <input
+                    name="radioStation"
+                    type="url"
+                    class="form-control fws-bold"
+                    id="formGroupExampleInput2"
+                    placeholder="htttp://radio.com"
+                  />
                 </div>
-
-                <div class="input-group mb-3 mt-5  rounded d-flex justify-content-between ">
-                  <div class="custom-file  mb-4 ">
-                    <input
-                      type="file"
-                      class=" form-control custom-file-input "
-                      id="inputGroupFile02"
-                      accept="audio/*"
-                    />
-                  </div>
-                  <div class="input-group-append">
-                    <button type="button" class="btn btn-primary ">
-                      Upload
-                    </button>
+                <div class="form-group  mt-4">
+                  <label
+                    for="formGroupExampleInput2 "
+                    className="d-flex fw-bold mb-1 "
+                  >
+                    {" "}
+                    Radio Image{" "}
+                  </label>
+                  <div class="input-group mb-3 d-flex justify-content-between ">
+                    <div class="custom-file  mb-4  rounded d-flex justify-content-between">
+                      <input
+                        type="file"
+                        class=" form-control custom-file-input "
+                        id="inputGroupFile02"
+                        accept="image/*"
+                      />
+                    </div>
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-primary ">
+                        Upload
+                      </button>
+                    </div>
                   </div>
                 </div>
               </form>
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-primary">
-                Save Changes
+                Save
               </button>
               <button
                 type="button"

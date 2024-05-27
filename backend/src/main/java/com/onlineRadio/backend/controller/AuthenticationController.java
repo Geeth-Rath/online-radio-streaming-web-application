@@ -7,10 +7,9 @@ import com.onlineRadio.backend.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -20,6 +19,18 @@ public class AuthenticationController {
 
     public AuthenticationController(AuthenticationService authService) {
         this.authService = authService;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Integer id) {
+        User user = authService.getUserById(id);
+        return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = authService.getAllUsers();
+        return ResponseEntity.ok(users);
     }
 
 

@@ -1,6 +1,6 @@
 package com.onlineRadio.backend.modal;
 
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,16 +38,21 @@ public class User implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Token> tokens;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_radio",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "radio_id")
     )
     private Set<Radio> radios;
+
+//    public User(Integer id) {
+//        this.id = id;
+//    }
 
     @Override
     public boolean isAccountNonExpired() {

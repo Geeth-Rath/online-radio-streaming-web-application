@@ -47,7 +47,7 @@ const Login = () => {
   return (
     <div className="d-flex justify-content-center align-items-center">
       <div className="row min-vh-100 d-flex justify-content-center align-items-center ">
-        <Header />
+      <Header showLogout={false} />
         <form
           class=" rounded shadow p-5 user-login "
           // style={{
@@ -64,7 +64,7 @@ const Login = () => {
                 // value={formdata.username}
                 class="form-control"
                 id="inputUserName"
-                placeholder="userName"
+                placeholder="User Name"
                 // onChange={onChangeHandle}
               />
             </div>

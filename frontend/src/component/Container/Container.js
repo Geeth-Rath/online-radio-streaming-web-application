@@ -10,7 +10,7 @@ export const Container = () => {
   return (
     <div>
       <div className="mb-5">
-        <Header />
+      <Header showLogout={true} />
         <FileSearch />
         <AudioPlayer />
         <Favorite />

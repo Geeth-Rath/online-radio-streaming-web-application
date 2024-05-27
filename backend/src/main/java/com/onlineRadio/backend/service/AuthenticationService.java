@@ -41,6 +41,15 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
+    public User getUserById(Integer id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    public List<User> getAllUsers() {
+        return repository.findAll();
+    }
+
+
     public AuthenticationResponse register(User request) {
 
         if(repository.findByUsername(request.getUsername()).isPresent()) {

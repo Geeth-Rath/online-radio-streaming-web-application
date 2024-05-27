@@ -1,6 +1,6 @@
 package com.onlineRadio.backend.modal;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +27,6 @@ public class Token {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
-
 }

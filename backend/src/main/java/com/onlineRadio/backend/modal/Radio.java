@@ -40,4 +40,6 @@ public class Radio {
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     @JsonManagedReference
     private Image image;
+
+
 }

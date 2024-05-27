@@ -59,7 +59,7 @@ const Registration = () => {
   return (
     <div className="d-flex justify-content-center align-items-center">
       <div className="row min-vh-100 d-flex justify-content-center align-items-center ">
-        <Header />
+      <Header showLogout={false} />
         <form
           class=" g-3 rounded shadow p-5"
           // onSubmit={handlesubmit}
@@ -69,11 +69,22 @@ const Registration = () => {
             <div class="form-group mt-4">
               <input
                 type="text"
-                name="name"
+                name="firstName"
                 // value={formdata.name}
                 class="form-control "
-                id="inputName"
-                placeholder="Name"
+                id="inputFirstName"
+                placeholder="First Name"
+                // onChange={onChangeHandle}
+              />
+            </div>
+            <div class="form-group mt-4">
+              <input
+                type="text"
+                name="secondName"
+                // value={formdata.name}
+                class="form-control "
+                id="inputSecondName"
+                placeholder="Second Name"
                 // onChange={onChangeHandle}
               />
             </div>
@@ -84,21 +95,11 @@ const Registration = () => {
                 // value={formdata.username}
                 class="form-control"
                 id="inputUserName"
-                placeholder="userName"
+                placeholder="User Name"
                 // onChange={onChangeHandle}
               />
             </div>
-            <div class="form-group col mt-4">
-              <input
-                type="email"
-                name="email"
-                // value={formdata.email}
-                class="form-control"
-                id="inputEmail4"
-                placeholder="email"
-                // onChange={onChangeHandle}
-              />
-            </div>
+        
             <div class="form-group mt-4 ">
               <input
                 type="password"
@@ -111,6 +112,27 @@ const Registration = () => {
                 // onChange={onChangeHandle}
               />
             </div>
+            <div class="form-group d-flex mt-4">
+                  {/* <label
+                    for="formGroupExampleInput2 "
+                    className="d-flex fw-bold mb-1"
+                  >
+                    {" "}
+                  </label> */}
+                  <select
+                    class="form-select form-select    rounded"
+                    aria-label="Default select example"
+                    // value={category}
+                    style={{ width: "100%", marginBottom: "10px" }}
+                    // onChange={(value) => setCategory(value.target.value)}
+                  >
+                    
+                    <option selected disabled value="user">Role</option>
+                    <option   value="user">User</option>
+                    <option value="admin">Admin</option>
+                
+                  </select>
+                </div>
           </div>
 
           <div class="d-grid mt-4">

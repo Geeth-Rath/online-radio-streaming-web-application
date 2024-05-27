@@ -25,7 +25,7 @@ const AudioBar = () => {
           <div className="col-sm-auto d-flex justify-content-center align-items-center mx-2 ">
             <span class="mx-2 fw-bold">Rockstar State</span>{" "}
             <span class="mx-2  "> By</span>{" "}
-            <span className="fw-bold fst-italic mx-2">Autor Name</span>
+            <span className="fw-bold fst-italic mx-2">Station</span>
           </div>
           <div className="col">
             <svg

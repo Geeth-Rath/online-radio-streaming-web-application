@@ -74,13 +74,11 @@ public class RadioService {
         if (existingImage != null) {
             imageRepository.delete(existingImage);
         }
-
         Image newImage = new Image();
         newImage.setFileName(file.getOriginalFilename());
         newImage.setFileType(file.getContentType());
         newImage.setData(file.getBytes());
         imageRepository.save(newImage);
-
 
         radio.setImage(newImage);
         return radioRepository.save(radio);
