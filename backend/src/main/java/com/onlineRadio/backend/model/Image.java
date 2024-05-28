@@ -1,4 +1,4 @@
-package com.onlineRadio.backend.modal;
+package com.onlineRadio.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;

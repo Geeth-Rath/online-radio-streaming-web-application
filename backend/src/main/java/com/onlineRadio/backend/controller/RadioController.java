@@ -1,7 +1,8 @@
 package com.onlineRadio.backend.controller;
 
-import com.onlineRadio.backend.modal.Radio;
+import com.onlineRadio.backend.model.Radio;
 import com.onlineRadio.backend.service.RadioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/radios")
 public class RadioController {
-
+    @Autowired
     private final RadioService radioService;
 
     public RadioController(RadioService radioService) {
@@ -36,6 +37,8 @@ public class RadioController {
 
     @PostMapping("/create")
     public ResponseEntity<Radio> createRadio(@RequestBody Radio radio) {
+        System.out.println("radio********************************************");
+        System.out.println(radio);
         Radio createdRadio = radioService.createRadio(radio);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRadio);
     }

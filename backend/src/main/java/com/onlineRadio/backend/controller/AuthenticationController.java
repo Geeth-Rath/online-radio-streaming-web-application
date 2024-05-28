@@ -1,8 +1,7 @@
 package com.onlineRadio.backend.controller;
 
-
-import com.onlineRadio.backend.modal.AuthenticationResponse;
-import com.onlineRadio.backend.modal.User;
+import com.onlineRadio.backend.model.AuthenticationResponse;
+import com.onlineRadio.backend.model.User;
 import com.onlineRadio.backend.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
 public class AuthenticationController {
 
     private final AuthenticationService authService;
@@ -37,7 +35,7 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody User request
-    ) {
+            ) {
         return ResponseEntity.ok(authService.register(request));
     }
 
@@ -56,4 +54,3 @@ public class AuthenticationController {
         return authService.refreshToken(request, response);
     }
 }
-
