@@ -1,5 +1,4 @@
-package com.onlineRadio.backend.modal;
-
+package com.onlineRadio.backend.model;
 
 public enum Role {
     USER,

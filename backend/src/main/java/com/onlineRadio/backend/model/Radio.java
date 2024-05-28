@@ -1,4 +1,4 @@
-package com.onlineRadio.backend.modal;
+package com.onlineRadio.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -12,11 +12,10 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 public class Radio {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Integer iud;
 
     @Column(name = "programme", nullable = false)
     private String programme;
@@ -27,14 +26,14 @@ public class Radio {
     @Column(name = "radio_url", nullable = false, length = 255)
     private String radioUrl;
 
-    @Column(name = "rate", nullable = false)
-    private Integer rate;
+//    @Column(name = "rate", nullable = false)
+//    private Integer rate;
 
     @Column(name = "isFavorite", nullable = false)
     private boolean isFavorite;
-
-    @ManyToMany(mappedBy = "radios")
-    private Set<User> users;
+//
+//    @ManyToMany(mappedBy = "radios")
+//    private Set<User> users;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "image_id", referencedColumnName = "id")

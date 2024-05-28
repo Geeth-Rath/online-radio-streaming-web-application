@@ -1,6 +1,5 @@
 package com.onlineRadio.backend.service;
 
-
 import com.onlineRadio.backend.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,4 +21,3 @@ public class UserDetailsServiceImp implements UserDetailsService {
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
     }
 }
-

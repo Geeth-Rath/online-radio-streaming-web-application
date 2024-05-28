@@ -1,6 +1,6 @@
 package com.onlineRadio.backend.service;
 
-import com.onlineRadio.backend.modal.User;
+import com.onlineRadio.backend.model.User;
 import com.onlineRadio.backend.repository.TokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -108,4 +108,3 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }
-

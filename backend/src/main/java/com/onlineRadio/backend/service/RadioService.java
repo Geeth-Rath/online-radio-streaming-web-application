@@ -1,7 +1,7 @@
 package com.onlineRadio.backend.service;
 
-import com.onlineRadio.backend.modal.Image;
-import com.onlineRadio.backend.modal.Radio;
+import com.onlineRadio.backend.model.Image;
+import com.onlineRadio.backend.model.Radio;
 import com.onlineRadio.backend.repository.ImageRepository;
 import com.onlineRadio.backend.repository.RadioRepository;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,7 @@ public class RadioService {
             existingRadio.setProgramme(radio.getProgramme());
             existingRadio.setRadioStation(radio.getRadioStation());
             existingRadio.setRadioUrl(radio.getRadioUrl());
-            existingRadio.setRate(radio.getRate());
+//            existingRadio.setRate(radio.getRate());
             existingRadio.setFavorite(radio.isFavorite());
             return radioRepository.save(existingRadio);
         }

@@ -1,7 +1,6 @@
 package com.onlineRadio.backend.config;
 
-
-import com.onlineRadio.backend.modal.Token;
+import com.onlineRadio.backend.model.Token;
 import com.onlineRadio.backend.repository.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
