@@ -1,9 +1,12 @@
 package com.onlineRadio.backend.service;
 
+import com.onlineRadio.backend.errorHandling.ResourceNotFoundException;
 import com.onlineRadio.backend.model.Image;
 import com.onlineRadio.backend.model.Radio;
+import com.onlineRadio.backend.model.User;
 import com.onlineRadio.backend.repository.ImageRepository;
 import com.onlineRadio.backend.repository.RadioRepository;
+import com.onlineRadio.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,23 +19,50 @@ public class RadioService {
 
     private final RadioRepository radioRepository;
     private final ImageRepository imageRepository;
+    private  final UserRepository userRepository;
 
-    public RadioService(RadioRepository radioRepository, ImageRepository imageRepository) {
+    public RadioService(RadioRepository radioRepository, ImageRepository imageRepository, UserRepository userRepository) {
         this.radioRepository = radioRepository;
         this.imageRepository = imageRepository;
+        this.userRepository = userRepository;
     }
 
-    public List<Radio> getAllRadios() {
-        return radioRepository.findAll();
-    }
-
+//    public List<Radio> getAllRadios() {
+//        return radioRepository.findAll();
+//    }
+//
     public Optional<Radio> getRadioById(Integer id) {
         return radioRepository.findById(id);
     }
 
-    public Radio createRadio(Radio radio) {
+    ///************************************************************
+//public List<Radio> getAllRadiosWithUserDetails() {
+//    return radioRepository.findAllWithUserDetails();
+//}
+//    public Radio createRadio(Radio radio) {
+//        return radioRepository.save(radio);
+//    }
+
+    public List<Radio> getAllRadiosByUserId(Integer userId) {
+        return radioRepository.findAllByUserId(userId);
+    }
+
+
+    public Radio createRadio(Integer userId, Radio radio) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+        radio.setUser(user);
         return radioRepository.save(radio);
     }
+
+//    public Radio createRadio(Integer userId, Radio radio) {
+//        User user = userRepository.findById(userId)
+//                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+//        radio.getUsers().add(user); // Add the user to the set of users associated with the radio
+//        return radioRepository.save(radio);
+//    }
+
+
 
     public Radio updateRadio(Integer id, Radio radio) {
         Radio existingRadio = radioRepository.findById(id).orElse(null);

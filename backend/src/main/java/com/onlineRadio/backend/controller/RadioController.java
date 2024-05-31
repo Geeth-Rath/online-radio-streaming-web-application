@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/radios")
 public class RadioController {
@@ -23,9 +24,36 @@ public class RadioController {
         this.radioService = radioService;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Radio>> getAllRadios() {
-        List<Radio> radios = radioService.getAllRadios();
+
+    //    @PostMapping("/create")
+//    public ResponseEntity<Radio> createRadio(@RequestBody Radio radio) {
+//        System.out.println("radio********************************************");
+//        System.out.println(radio);
+//        Radio createdRadio = radioService.createRadio(radio);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(createdRadio);
+//    }
+
+    @PostMapping("/{userId}/create")
+    public ResponseEntity<Radio> createRadio(@PathVariable Integer userId, @RequestBody Radio radio) {
+        Radio createdRadio = radioService.createRadio(userId, radio);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdRadio);
+    }
+
+//    @GetMapping("{id}/all")
+//    public ResponseEntity<List<Radio>> getAllRadios() {
+//        List<Radio> radios = radioService.getAllRadios();
+//        return ResponseEntity.ok(radios);
+//    }
+
+//    @GetMapping("/all")
+//    public ResponseEntity<List<Radio>> getAllRadios() {
+//        List<Radio> radios = radioService.getAllRadiosWithUserDetails();
+//        return ResponseEntity.ok(radios);
+//    }
+
+    @GetMapping("/{user_id}/all")
+    public ResponseEntity<List<Radio>> getAllRadiosByUserId(@PathVariable("user_id") Integer userId) {
+        List<Radio> radios = radioService.getAllRadiosByUserId(userId);
         return ResponseEntity.ok(radios);
     }
 
@@ -35,16 +63,12 @@ public class RadioController {
         return song.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Radio> createRadio(@RequestBody Radio radio) {
-        System.out.println("radio********************************************");
-        System.out.println(radio);
-        Radio createdRadio = radioService.createRadio(radio);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdRadio);
-    }
+
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Radio> updateRadio(@PathVariable Integer id, @RequestBody Radio radio) {
+        System.out.println("REBody:"+ radio.toString());
         Radio updatedRadio = radioService.updateRadio(id, radio);
         return updatedRadio != null ? ResponseEntity.ok(updatedRadio) : ResponseEntity.notFound().build();
     }

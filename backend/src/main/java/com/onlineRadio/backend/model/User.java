@@ -38,8 +38,11 @@ public class User implements UserDetails {
     @JsonManagedReference
     private List<Token> tokens;
 
-//
-//    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Radio> radios;
+
+//    @ManyToMany
 //    @JoinTable(
 //            name = "user_radio",
 //            joinColumns = @JoinColumn(name = "user_id"),
@@ -47,9 +50,6 @@ public class User implements UserDetails {
 //    )
 //    private Set<Radio> radios;
 
-//    public User(Integer id) {
-//        this.id = id;
-//    }
 
     public Integer getId() {
         return id;

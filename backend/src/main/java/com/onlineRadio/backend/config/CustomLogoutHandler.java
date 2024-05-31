@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 @Configuration
+
 public class CustomLogoutHandler implements LogoutHandler {
 
     private final TokenRepository tokenRepository;

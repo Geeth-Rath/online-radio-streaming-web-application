@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class AuthenticationController {
 
@@ -43,6 +44,7 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> login(
             @RequestBody User request
     ) {
+        System.out.println("userrq***************+++++++++++++++++" + request);
         return ResponseEntity.ok(authService.authenticate(request));
     }
 

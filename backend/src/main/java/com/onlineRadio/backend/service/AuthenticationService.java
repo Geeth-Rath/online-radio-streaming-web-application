@@ -90,7 +90,7 @@ public class AuthenticationService {
         revokeAllTokenByUser(user);
         saveUserToken(accessToken, refreshToken, user);
 
-        return new AuthenticationResponse(accessToken, refreshToken, "User login was successful");
+        return new AuthenticationResponse(user.getId(), accessToken, refreshToken, "User login was successful");
 
     }
     private void revokeAllTokenByUser(User user) {
