@@ -29,7 +29,6 @@ const Registration = () => {
   };
 
   const onChangeHandle = (e) => {
-    console.log("formdata", formdata);
     const { name, value } = e.target;
     setFormdata({
       ...formdata,

@@ -1,6 +1,12 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const StarRating = () => {
+
+  const dispatch = useDispatch();
+  const radios = useSelector((state) => state.radio.radios);
+  console.log("all:", radios)
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
 

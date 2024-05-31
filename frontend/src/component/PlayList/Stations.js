@@ -45,6 +45,7 @@ const Stations = ({ id }) => {
         radioUrl: radio.radioUrl,
         imageUrl: radio.imageUrl,
         favorite: radio.favorite,
+        rate:radio.rate,
       }));
     }
   }, [radio]);

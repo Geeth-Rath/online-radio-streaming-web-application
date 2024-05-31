@@ -25,7 +25,6 @@ const FileSearch = () => {
   };
 
   const handleFormSubmit = () => {
-    console.log("submit form", formData);
     dispatch(createRadio(userId, formData));
   };
 
