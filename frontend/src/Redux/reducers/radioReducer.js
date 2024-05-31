@@ -94,7 +94,7 @@ const radioReducer = (state = initialState, action) => {
         ...state,
         searchTerm: true,
         filteredSearchRadios: state.radios.filter((radio) =>
-          radio.programme.toLowerCase().includes(searchTerm)
+          radio.radioStation.toLowerCase().includes(searchTerm)
         ),
       };
     case SET_CURRENT_RADIO:

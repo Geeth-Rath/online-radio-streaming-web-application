@@ -21,7 +21,7 @@ const Stations = ({ id }) => {
   const currentRadio = useSelector((state) => state.radio.currentRadio);
 
   const [radioToDelete, setRadioToDelete] = useState(null);
-  const [UpdateRadioId, setUpdateRadioId] = useState(null); 
+  const [UpdateRadioId, setUpdateRadioId] = useState(null);
   const [formData, setFormData] = useState({
     id: "",
     programme: "",
@@ -29,6 +29,7 @@ const Stations = ({ id }) => {
     radioUrl: "",
     imageUrl: "",
     favorite: "",
+    rate: 0,
   });
 
   useEffect(() => {
@@ -45,7 +46,7 @@ const Stations = ({ id }) => {
         radioUrl: radio.radioUrl,
         imageUrl: radio.imageUrl,
         favorite: radio.favorite,
-        rate:radio.rate,
+        rate: radio.rate,
       }));
     }
   }, [radio]);
@@ -73,7 +74,6 @@ const Stations = ({ id }) => {
       ...formData,
       [name]: value,
     });
-    
   };
 
   const handleFormSubmit = (e) => {
@@ -104,7 +104,6 @@ const Stations = ({ id }) => {
       dispatch(togglePlayPause());
     }
   };
-
 
   return (
     <div className="container pt-5 pb-4">
@@ -212,7 +211,7 @@ const Stations = ({ id }) => {
               </div>
 
               <div className="row ">
-                <StarRating />
+                <StarRating radio={radio} />
               </div>
             </div>
           ))
@@ -297,7 +296,7 @@ const Stations = ({ id }) => {
               </div>
 
               <div className="row ">
-                <StarRating />
+                <StarRating radio={radio} />
               </div>
             </div>
           ))}
@@ -393,7 +392,7 @@ const Stations = ({ id }) => {
                     for="formGroupExampleInput2"
                     className="d-flex fw-bold mb-1"
                   >
-                Radio Image{" "}
+                    Radio Image{" "}
                   </label>
                   <input
                     name="imageUrl"
@@ -406,7 +405,7 @@ const Stations = ({ id }) => {
                     onChange={handleInputChange}
                     required
                   />
-                </div>  
+                </div>
               </div>
               <div className="modal-footer">
                 <button type="submit" className="btn btn-primary">
@@ -438,9 +437,7 @@ const Stations = ({ id }) => {
         <div className="modal-dialog " role="document">
           <div className="modal-content pt-4" id="customModal">
             <div className="modal-body">
-              {radioToDelete && (
-                <h5>Do you want to delete the Station ?</h5>
-              )}
+              {radioToDelete && <h5>Do you want to delete the Station ?</h5>}
             </div>
             <div className="modal-footer">
               <button

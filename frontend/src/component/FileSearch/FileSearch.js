@@ -8,7 +8,6 @@ const FileSearch = () => {
   const userId = useSelector((state) => state.auth.userId);
 
   const [searchTerm, setSearchTerm] = useState("");
-
   const [formData, setFormData] = useState({
     programme: "",
     radioStation: "",
@@ -31,6 +30,7 @@ const FileSearch = () => {
   const handleSearchInput = (event) => {
     const term = event.target.value;
     setSearchTerm(term);
+    
   };
 
   const handleSearch = () => {

@@ -39,7 +39,9 @@ public class Radio {
     @JsonBackReference
     private User user;
 
-   
+     public Radio(Integer rate) {
+         this.rate = 0;
+     }
 }
 
 

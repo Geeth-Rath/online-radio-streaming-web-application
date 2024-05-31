@@ -160,7 +160,6 @@ export const updateRadio = (radioId, updatedRadioData) => {
         },
       });
       const updatedRadio = response.data;
-
       dispatch(updateRadioSuccess(updatedRadio));
     } catch (error) {
       dispatch(updateRadioFailure(error));

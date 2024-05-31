@@ -26,7 +26,6 @@ const Favorite = () => {
 
   const userId = useSelector((state) => state.auth.userId);
 
-
   const [isRed, setIsRed] = useState(true);
   const [radioToDelete, setRadioToDelete] = useState(null);
   const [UpdateRadioId, setUpdateRadioId] = useState(null);
@@ -36,7 +35,7 @@ const Favorite = () => {
     programme: "",
     radioStation: "",
     radioUrl: "",
-    radioImage: "",
+    imageUrl: "",
     favorite: "",
   });
 
@@ -52,13 +51,11 @@ const Favorite = () => {
         programme: radio.programme,
         radioStation: radio.radioStation,
         radioUrl: radio.radioUrl,
-        radioImage: radio.radioImage,
+        imageUrl: radio.imageUrl,
         favorite: radio.favorite,
       }));
     }
   }, [radio]);
-
- 
 
   const handleDeleteClick = (radioId) => {
     setRadioToDelete(radioId);
@@ -91,8 +88,6 @@ const Favorite = () => {
     window.location.reload();
   };
 
-
-
   const handleToggleFavorite = (radioId, fav) => {
     const currentRadio = radios.find((radio) => radio.id === radioId);
 
@@ -107,10 +102,6 @@ const Favorite = () => {
       window.location.reload();
     }
   };
-  // const togglePlayPauseIcon = () => {
-  //   setIsPlaying(!isPlaying);
-  // };
-
 
   const handlePlayPause = (currentRadio) => {
     if (radio && radio.id === currentRadio.id) {
@@ -118,7 +109,6 @@ const Favorite = () => {
     } else {
       dispatch(setCurrentRadio(currentRadio));
       dispatch(togglePlayPause());
-      // togglePlayPauseIcon();
     }
   };
 
@@ -170,7 +160,7 @@ const Favorite = () => {
               </div>
 
               <div className="col-1">
-              {isPlaying && (currentRadio.id == radio.id ) ? (
+                {isPlaying && currentRadio.id == radio.id ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -230,7 +220,7 @@ const Favorite = () => {
               </div>
 
               <div className="row ">
-                <StarRating />
+                <StarRating radio={radio} />
               </div>
             </div>
           ))
@@ -257,7 +247,7 @@ const Favorite = () => {
               </div>
 
               <div className="col-1">
-              {isPlaying && (currentRadio.id == radio.id ) ? (
+                {isPlaying && currentRadio.id == radio.id ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -315,7 +305,7 @@ const Favorite = () => {
               </div>
 
               <div className="row ">
-                <StarRating />
+                <StarRating radio={radio} />
               </div>
             </div>
           ))}
@@ -411,7 +401,7 @@ const Favorite = () => {
                     for="formGroupExampleInput2"
                     className="d-flex fw-bold mb-1"
                   >
-                Radio Image{" "}
+                    Radio Image{" "}
                   </label>
                   <input
                     name="imageUrl"
@@ -424,8 +414,7 @@ const Favorite = () => {
                     onChange={handleInputChange}
                     required
                   />
-                </div>  
-             
+                </div>
               </div>
               <div className="modal-footer">
                 <button type="submit" className="btn btn-primary">
@@ -457,9 +446,7 @@ const Favorite = () => {
         <div className="modal-dialog " role="document">
           <div className="modal-content pt-4" id="customModal">
             <div className="modal-body">
-              {radioToDelete && (
-                <h5>Do you want to delete the Station ?</h5>
-              )}
+              {radioToDelete && <h5>Do you want to delete the Station ?</h5>}
             </div>
             <div className="modal-footer">
               <button
