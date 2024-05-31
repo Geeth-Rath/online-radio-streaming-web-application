@@ -134,7 +134,6 @@ export const getRadioById = (radioId) => {
 };
 
 export const createRadio = (userId, radioData) => {
-
   return async (dispatch, getState) => {
     try {
       const accessToken = getState().auth.accessToken;
@@ -155,16 +154,13 @@ export const updateRadio = (radioId, updatedRadioData) => {
   return async (dispatch, getState) => {
     try {
       const accessToken = getState().auth.accessToken;
-      const response = await api.put(
-        `/radios/${radioId}`, 
-        updatedRadioData,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      const response = await api.put(`/radios/${radioId}`, updatedRadioData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       const updatedRadio = response.data;
+
       dispatch(updateRadioSuccess(updatedRadio));
     } catch (error) {
       dispatch(updateRadioFailure(error));

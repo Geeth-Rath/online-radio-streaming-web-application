@@ -32,7 +32,6 @@ public class AuthenticationController {
         return ResponseEntity.ok(users);
     }
 
-
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody User request
@@ -44,7 +43,7 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> login(
             @RequestBody User request
     ) {
-        System.out.println("userrq***************+++++++++++++++++" + request);
+
         return ResponseEntity.ok(authService.authenticate(request));
     }
 

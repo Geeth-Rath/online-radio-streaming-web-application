@@ -150,7 +150,7 @@ const Favorite = () => {
         ? searchRadios.map((radio) => (
             <div className="row pt-3 ">
               <div key={radio.id} className="col d-flex align-item-right">
-                <span>{radio.programme}</span>
+                <span>{radio.radioStation}</span>
               </div>
               <div className="col-1">
                 <svg
@@ -237,7 +237,7 @@ const Favorite = () => {
         : radios.map((radio) => (
             <div className="row pt-3 ">
               <div key={radio.id} className="col d-flex align-item-right">
-                <span>{radio.programme}</span>
+                <span>{radio.radioStation}</span>
               </div>
               <div className="col-1">
                 <svg
@@ -408,30 +408,24 @@ const Favorite = () => {
                 </div>
                 <div class="form-group  mt-4">
                   <label
-                    for="formGroupExampleInput2 "
-                    className="d-flex fw-bold mb-1 "
+                    for="formGroupExampleInput2"
+                    className="d-flex fw-bold mb-1"
                   >
-                    {" "}
-                    Radio Image{" "}
+                Radio Image{" "}
                   </label>
-                  {/* <div class="input-group mb-3 d-flex justify-content-between ">
-                    <div class="custom-file  mb-4  rounded d-flex justify-content-between">
-                      <input
-                        type="file"
-                        class=" form-control custom-file-input "
-                        id="inputGroupFile02"
-                        aria-describedby="inputGroupPrepend"
-                        accept="image/*"
-                        required
-                      />
-                    </div>
-                    <div class="input-group-append">
-                      <button type="button" class="btn btn-primary ">
-                        Upload
-                      </button>
-                    </div>
-                  </div> */}
-                </div>
+                  <input
+                    name="imageUrl"
+                    type="url"
+                    class="form-control fws-bold"
+                    id="formGroupExampleInput10"
+                    aria-describedby="inputGroupPrepend"
+                    placeholder="htttp://image.com"
+                    value={formData.imageUrl}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>  
+             
               </div>
               <div className="modal-footer">
                 <button type="submit" className="btn btn-primary">
@@ -464,7 +458,7 @@ const Favorite = () => {
           <div className="modal-content pt-4" id="customModal">
             <div className="modal-body">
               {radioToDelete && (
-                <h5>Do you want to delete "{radioToDelete}" Station ?</h5>
+                <h5>Do you want to delete the Station ?</h5>
               )}
             </div>
             <div className="modal-footer">

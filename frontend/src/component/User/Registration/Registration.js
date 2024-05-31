@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../../Redux/actions/authActions";
+import Header from "../../Header/Header";
 
 const Registration = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const Registration = () => {
   return (
     <div className="d-flex justify-content-center align-items-center">
       <div className="row min-vh-100 d-flex justify-content-center align-items-center ">
+      <Header showLogout={false} /> 
         <form className="g-3 rounded shadow p-5" onSubmit={handleSubmit}>
           <h3>Registration</h3>
           <div className="form-row">

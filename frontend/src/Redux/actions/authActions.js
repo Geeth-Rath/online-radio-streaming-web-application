@@ -63,42 +63,29 @@ export const loginUser = (credentials, navigate) => {
     try {
       const response = await api.post("/login", credentials);
       const { access_token, refresh_token, user_id } = response.data;
-
       console.log("access_token", access_token);
       dispatch(loginSuccess(access_token, refresh_token));
       navigate(`/content/${user_id}`);
     } catch (error) {
-      console.log("login error", error);
+      alert("Login failed. Please try again.");
       dispatch(apiError(error));
     }
   };
 };
-/////////////////////////**********************************problem******************** */
 export const logoutUser = () => {
   return async (dispatch, getState) => {
     try {
-      // Get the current refresh tokenco
-
       const refreshToken = getState().auth.refreshToken;
-      console.log("ddddddddddd", refreshToken);
 
-      // Call the logout endpoint with the refresh token
       const response = await api.post("/logout", {
         refresh_token: refreshToken,
       });
-      console.log("1111111111log err", response);
 
-      // Dispatch the logout success action
       dispatch(logoutSuccess());
-      console.log("1111222222222222222111111log err");
 
-      // Clear local storage
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
-      console.log("33333333333333 err");
     } catch (error) {
-      console.log("log err", error);
-      // Dispatch API error action
       dispatch(apiError(error));
     }
   };

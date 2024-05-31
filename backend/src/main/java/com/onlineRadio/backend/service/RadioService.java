@@ -1,16 +1,12 @@
 package com.onlineRadio.backend.service;
 
 import com.onlineRadio.backend.errorHandling.ResourceNotFoundException;
-import com.onlineRadio.backend.model.Image;
 import com.onlineRadio.backend.model.Radio;
 import com.onlineRadio.backend.model.User;
-import com.onlineRadio.backend.repository.ImageRepository;
 import com.onlineRadio.backend.repository.RadioRepository;
 import com.onlineRadio.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,35 +14,23 @@ import java.util.Optional;
 public class RadioService {
 
     private final RadioRepository radioRepository;
-    private final ImageRepository imageRepository;
     private  final UserRepository userRepository;
 
-    public RadioService(RadioRepository radioRepository, ImageRepository imageRepository, UserRepository userRepository) {
+    public RadioService(RadioRepository radioRepository,
+                        UserRepository userRepository) {
         this.radioRepository = radioRepository;
-        this.imageRepository = imageRepository;
         this.userRepository = userRepository;
     }
 
-//    public List<Radio> getAllRadios() {
-//        return radioRepository.findAll();
-//    }
-//
+
     public Optional<Radio> getRadioById(Integer id) {
         return radioRepository.findById(id);
     }
 
-    ///************************************************************
-//public List<Radio> getAllRadiosWithUserDetails() {
-//    return radioRepository.findAllWithUserDetails();
-//}
-//    public Radio createRadio(Radio radio) {
-//        return radioRepository.save(radio);
-//    }
 
     public List<Radio> getAllRadiosByUserId(Integer userId) {
         return radioRepository.findAllByUserId(userId);
     }
-
 
     public Radio createRadio(Integer userId, Radio radio) {
         User user = userRepository.findById(userId)
@@ -55,22 +39,14 @@ public class RadioService {
         return radioRepository.save(radio);
     }
 
-//    public Radio createRadio(Integer userId, Radio radio) {
-//        User user = userRepository.findById(userId)
-//                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-//        radio.getUsers().add(user); // Add the user to the set of users associated with the radio
-//        return radioRepository.save(radio);
-//    }
-
-
-
     public Radio updateRadio(Integer id, Radio radio) {
         Radio existingRadio = radioRepository.findById(id).orElse(null);
         if (existingRadio != null) {
             existingRadio.setProgramme(radio.getProgramme());
             existingRadio.setRadioStation(radio.getRadioStation());
             existingRadio.setRadioUrl(radio.getRadioUrl());
-//            existingRadio.setRate(radio.getRate());
+            existingRadio.setRate(radio.getRate());
+            existingRadio.setImageUrl(radio.getImageUrl());
             existingRadio.setFavorite(radio.isFavorite());
             return radioRepository.save(existingRadio);
         }
@@ -83,35 +59,6 @@ public class RadioService {
             return true;
         }
         return false;
-    }
-
-    public Radio uploadImage(Integer radioId, MultipartFile file) throws IOException {
-        Radio radio = radioRepository.findById(radioId).orElseThrow(() -> new RuntimeException("Radio not found"));
-        Image image = new Image();
-        image.setFileName(file.getOriginalFilename());
-        image.setFileType(file.getContentType());
-        image.setData(file.getBytes());
-        imageRepository.save(image);
-
-        radio.setImage(image);
-        return radioRepository.save(radio);
-    }
-
-    public Radio updateImage(Integer radioId, MultipartFile file) throws IOException {
-        Radio radio = radioRepository.findById(radioId).orElseThrow(() -> new RuntimeException("Radio not found"));
-
-        Image existingImage = radio.getImage();
-        if (existingImage != null) {
-            imageRepository.delete(existingImage);
-        }
-        Image newImage = new Image();
-        newImage.setFileName(file.getOriginalFilename());
-        newImage.setFileType(file.getContentType());
-        newImage.setData(file.getBytes());
-        imageRepository.save(newImage);
-
-        radio.setImage(newImage);
-        return radioRepository.save(radio);
     }
 
 }

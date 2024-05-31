@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -41,15 +40,6 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Radio> radios;
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "user_radio",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "radio_id")
-//    )
-//    private Set<Radio> radios;
-
 
     public Integer getId() {
         return id;

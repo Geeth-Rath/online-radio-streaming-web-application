@@ -49,8 +49,6 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse register(User request) {
-
-        // check if user already exist. if exist than authenticate the user
         if(repository.findByUsername(request.getUsername()).isPresent()) {
             return new AuthenticationResponse(null, null,"User already exist");
         }
@@ -117,7 +115,6 @@ public class AuthenticationService {
     public ResponseEntity refreshToken(
             HttpServletRequest request,
             HttpServletResponse response) {
-        // extract the token from authorization header
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if(authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -126,16 +123,12 @@ public class AuthenticationService {
 
         String token = authHeader.substring(7);
 
-        // extract username from token
         String username = jwtService.extractUsername(token);
 
-        // check if the user exist in database
         User user = repository.findByUsername(username)
                 .orElseThrow(()->new RuntimeException("No user found"));
 
-        // check if the token is valid
         if(jwtService.isValidRefreshToken(token, user)) {
-            // generate access token
             String accessToken = jwtService.generateAccessToken(user);
             String refreshToken = jwtService.generateRefreshToken(user);
 

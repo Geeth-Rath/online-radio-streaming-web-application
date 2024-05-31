@@ -49,7 +49,7 @@ const AudioBar = () => {
         <div className="col-auto audio-bar d-flex justify-content-center align-items-center p-3 rounded ">
           <div className="col-auto d-none d-md-block">
             <img
-              src={radioParadiswe}
+              src={currentRadio?.imageUrl || radioParadiswe}
               alt="QnA_head"
               id="QnA_head"
               className="mx-auto d-block "
@@ -64,7 +64,7 @@ const AudioBar = () => {
             <span className="fw-bold fst-italic mx-2">
               {currentRadio ? currentRadio.radioStation : "------"}
             </span>
-          </div>
+          </div>         
           <div className="col">
             <svg
               xmlns="http://www.w3.org/2000/svg"

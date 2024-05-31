@@ -24,6 +24,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await dispatch(loginUser(formData, navigate));
+      // window.location.reload();
     } catch (error) {
       alert("Login failed. Please try again.");
       console.error("Error during login:", error);

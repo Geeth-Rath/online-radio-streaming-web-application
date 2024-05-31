@@ -22,7 +22,7 @@ const AudioPlayer = () => {
     <div className="container">
       <div className="row mb-4">
         <img
-          src={radioParadiswe}
+          src={currentRadio?.imageUrl || radioParadiswe}
           alt="QnA_head"
           id="QnA_head"
           className="music-icon mx-auto d-block "

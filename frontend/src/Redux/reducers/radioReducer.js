@@ -70,7 +70,7 @@ const radioReducer = (state = initialState, action) => {
       return {
         ...state,
         radios: state.radios.map((radio) =>
-          radio.iud === action.updatedRadio.iud ? action.updatedRadio : radio
+          radio.iud === action.updatedRadio.id ? action.updatedRadio : radio
         ),
         error: null,
       };

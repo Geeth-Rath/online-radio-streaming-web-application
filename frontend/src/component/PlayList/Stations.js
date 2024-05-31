@@ -19,15 +19,15 @@ const Stations = ({ id }) => {
   const userId = useSelector((state) => state.auth.userId);
   const isPlaying = useSelector((state) => state.radio.isPlaying);
   const currentRadio = useSelector((state) => state.radio.currentRadio);
-  const [radioToDelete, setRadioToDelete] = useState(null);
-  const [UpdateRadioId, setUpdateRadioId] = useState(null);
 
+  const [radioToDelete, setRadioToDelete] = useState(null);
+  const [UpdateRadioId, setUpdateRadioId] = useState(null); 
   const [formData, setFormData] = useState({
     id: "",
     programme: "",
     radioStation: "",
     radioUrl: "",
-    radioImage: "",
+    imageUrl: "",
     favorite: "",
   });
 
@@ -43,7 +43,7 @@ const Stations = ({ id }) => {
         programme: radio.programme,
         radioStation: radio.radioStation,
         radioUrl: radio.radioUrl,
-        radioImage: radio.radioImage,
+        imageUrl: radio.imageUrl,
         favorite: radio.favorite,
       }));
     }
@@ -72,6 +72,7 @@ const Stations = ({ id }) => {
       ...formData,
       [name]: value,
     });
+    
   };
 
   const handleFormSubmit = (e) => {
@@ -103,6 +104,7 @@ const Stations = ({ id }) => {
     }
   };
 
+
   return (
     <div className="container pt-5 pb-4">
       <div className="row d-flex align-items-baseline">
@@ -131,7 +133,7 @@ const Stations = ({ id }) => {
         ? searchradios.map((radio) => (
             <div className="row pt-3 ">
               <div key={radio.id} className="col d-flex align-item-right">
-                <span>{radio.programme}</span>
+                <span>{radio.radioStation}</span>
               </div>
               <div className="col-1">
                 <svg
@@ -216,7 +218,7 @@ const Stations = ({ id }) => {
         : radios.map((radio) => (
             <div className="row pt-3 ">
               <div key={radio.id} className="col d-flex align-item-right">
-                <span>{radio.programme}</span>
+                <span>{radio.radioStation}</span>
               </div>
               <div className="col-1">
                 <svg
@@ -387,30 +389,23 @@ const Stations = ({ id }) => {
                 </div>
                 <div class="form-group  mt-4">
                   <label
-                    for="formGroupExampleInput2 "
-                    className="d-flex fw-bold mb-1 "
+                    for="formGroupExampleInput2"
+                    className="d-flex fw-bold mb-1"
                   >
-                    {" "}
-                    Radio Image{" "}
+                Radio Image{" "}
                   </label>
-                  {/* <div class="input-group mb-3 d-flex justify-content-between ">
-                    <div class="custom-file  mb-4  rounded d-flex justify-content-between">
-                      <input
-                        type="file"
-                        class=" form-control custom-file-input "
-                        id="inputGroupFile02"
-                        aria-describedby="inputGroupPrepend"
-                        accept="image/*"
-                        required
-                      />
-                    </div>
-                    <div class="input-group-append">
-                      <button type="button" class="btn btn-primary ">
-                        Upload
-                      </button>
-                    </div>
-                  </div> */}
-                </div>
+                  <input
+                    name="imageUrl"
+                    type="url"
+                    class="form-control fws-bold"
+                    id="formGroupExampleInput10"
+                    aria-describedby="inputGroupPrepend"
+                    placeholder="htttp://image.com"
+                    value={formData.imageUrl}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>  
               </div>
               <div className="modal-footer">
                 <button type="submit" className="btn btn-primary">
@@ -443,7 +438,7 @@ const Stations = ({ id }) => {
           <div className="modal-content pt-4" id="customModal">
             <div className="modal-body">
               {radioToDelete && (
-                <h5>Do you want to delete "{radioToDelete}" Station ?</h5>
+                <h5>Do you want to delete the Station ?</h5>
               )}
             </div>
             <div className="modal-footer">

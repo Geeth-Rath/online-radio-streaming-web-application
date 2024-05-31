@@ -1,13 +1,10 @@
 package com.onlineRadio.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "radio")
@@ -31,32 +28,17 @@ public class Radio {
     @Column(name = "isFavorite", nullable = false)
     private boolean isFavorite;
 
-//    @Column(name = "rate")
-//    private Integer rate;
+    @Column(name = "rate")
+    private Integer rate;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id", referencedColumnName = "id")
-    @JsonManagedReference
-    private Image image;
+    @Column(name = "image_url", nullable = false, length = 255)
+    private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
-//
-//    @ManyToMany(mappedBy = "radios")
-//    private Set<User> user;
 
-//    @ManyToMany(mappedBy = "radios")
-//    private Set<User> users = new HashSet<>();
-//
-//    public Set<User> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(Set<User> users) {
-//        this.users = users;
-//    }
 }
 
 
