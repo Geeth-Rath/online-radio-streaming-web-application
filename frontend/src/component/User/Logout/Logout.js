@@ -1,7 +1,22 @@
 import React from "react";
-import "../../Header/Header.css";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../../Redux/actions/authActions";
+import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logoutUser())
+      .then(() => {
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.error("Logout error:", error);
+      });
+  };
+
   return (
     <div>
       <svg
@@ -44,6 +59,7 @@ const Logout = () => {
                 type="button"
                 className="btn btn-primary"
                 data-bs-dismiss="modal"
+                onClick={handleLogout}
               >
                 Yes
               </button>

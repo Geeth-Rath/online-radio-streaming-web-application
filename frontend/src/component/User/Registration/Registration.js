@@ -1,160 +1,118 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "../../Header/Header";
-// import { useDispatch, useSelector } from "react-redux";
-// import { registerUser, fetchAllUsers } from "../Redux/Slice/userSlice";
-// import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../../Redux/actions/authActions";
 
 const Registration = () => {
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const users = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  // useEffect(() => {
-  //   dispatch(fetchAllUsers());
-  // }, [dispatch]);
+  const [formdata, setFormdata] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    role: "ADMIN",
+    password: "",
+  });
 
-  // const handlesubmit = (e) => {
-  //   e.preventDefault();
-  //   const existingUsernames = users.data.map((user) => user.username);
-  // const existingEmails = users.data.map((user) => user.email);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try {
+      dispatch(registerUser(formdata, navigate));
+    } catch (error) {
+      alert("Registration failed. Please try again.");
+      console.error("Error during login:", error);
+    }
+  };
 
-  // if (existingUsernames.includes(formdata.username)) {
-  //   alert("Username already exists. Please choose a different username.");
-  //   return;
-  // }
-
-  // if (existingEmails.includes(formdata.email)) {
-  //   alert("Email already exists. Please use a different email.");
-  //   return;
-  // }
-
-  //   dispatch(registerUser(formdata)).then(() => {
-  //     alert("Registration successful. You can now login.");
-  //     navigate("/login");
-  //   })
-  //   .catch((error) => {
-  //     alert(
-  //       "Username already exists. Please choose a different username."
-  //     );
-  //   });
-  // };
-
-  // const [formdata, setFormdata] = useState({
-  //   name: "",
-  //   username: "",
-  //   email: "",
-  //   password: "",
-  // });
-
-  // const onChangeHandle = (e) => {
-  //   setFormdata({
-  //     ...formdata,
-  //     [e.target.name]: e.target.value,
-  //   });
-  //   console.log(formdata);
-  // };
+  const onChangeHandle = (e) => {
+    console.log("formdata", formdata);
+    const { name, value } = e.target;
+    setFormdata({
+      ...formdata,
+      [name]: value,
+    });
+  };
 
   return (
     <div className="d-flex justify-content-center align-items-center">
       <div className="row min-vh-100 d-flex justify-content-center align-items-center ">
-      <Header showLogout={false} />
-        <form
-          class=" g-3 rounded shadow p-5"
-          // onSubmit={handlesubmit}
-        >
+        <form className="g-3 rounded shadow p-5" onSubmit={handleSubmit}>
           <h3>Registration</h3>
-          <div class="form-row ">
-            <div class="form-group mt-4">
+          <div className="form-row">
+            <div className="form-group mt-4">
               <input
                 type="text"
                 name="firstName"
-                // value={formdata.name}
-                class="form-control "
+                className="form-control"
                 id="inputFirstName"
                 placeholder="First Name"
-                // onChange={onChangeHandle}
+                value={formdata.firstName}
+                onChange={onChangeHandle}
+                required
               />
             </div>
-            <div class="form-group mt-4">
+            <div className="form-group mt-4">
               <input
                 type="text"
-                name="secondName"
-                // value={formdata.name}
-                class="form-control "
+                name="lastName"
+                className="form-control"
                 id="inputSecondName"
-                placeholder="Second Name"
-                // onChange={onChangeHandle}
+                placeholder="Last Name"
+                value={formdata.lastName}
+                onChange={onChangeHandle}
+                required
               />
             </div>
-            <div class="form-group mt-4">
+            <div className="form-group mt-4">
               <input
                 type="text"
                 name="username"
-                // value={formdata.username}
-                class="form-control"
+                className="form-control"
                 id="inputUserName"
                 placeholder="User Name"
-                // onChange={onChangeHandle}
+                value={formdata.username}
+                onChange={onChangeHandle}
+                required
               />
             </div>
-        
-            <div class="form-group mt-4 ">
+            <div className="form-group mt-4">
               <input
                 type="password"
                 name="password"
-                // value={formdata.password}
-                class="form-control"
-                id="inputpassword"
+                className="form-control"
+                id="inputPassword"
                 placeholder="Password"
-                autocomplete="false"
-                // onChange={onChangeHandle}
+                value={formdata.password}
+                onChange={onChangeHandle}
+                required
               />
             </div>
-            <div class="form-group d-flex mt-4">
-                  {/* <label
-                    for="formGroupExampleInput2 "
-                    className="d-flex fw-bold mb-1"
-                  >
-                    {" "}
-                  </label> */}
-                  <select
-                    class="form-select form-select    rounded"
-                    aria-label="Default select example"
-                    // value={category}
-                    style={{ width: "100%", marginBottom: "10px" }}
-                    // onChange={(value) => setCategory(value.target.value)}
-                  >
-                    
-                    <option selected disabled value="user">Role</option>
-                    <option   value="user">User</option>
-                    <option value="admin">Admin</option>
-                
-                  </select>
-                </div>
+            <div className="form-group d-flex mt-4">
+              <select
+                name="role"
+                className="form-select form-select rounded"
+                aria-label="Default select example"
+                value={formdata.role}
+                onChange={onChangeHandle}
+                required
+              >
+                <option value="USER">User</option>
+                <option value="ADMIN">Admin</option>
+              </select>
+            </div>
           </div>
-
-          <div class="d-grid mt-4">
-            <button type="submit" class="btn btn-primary">
+          <div className="d-grid mt-4">
+            <button type="submit" className="btn btn-primary">
               Register
             </button>
           </div>
-          <div
-            className="login-link mt-4 mb-4"
-            style={{ textAlign: "center", fontSize: "13px" }}
-          >
-            Already have an account?
-            <Link
-              to="/login"
-              style={{
-                textAlign: "center",
-                fontSize: "13px",
-                marginLeft: "12px",
-              }}
-              className="text-light"
-            >
-              Login now !
+          <div className="login-link mt-4 mb-4">
+            Already have an account?{" "}
+            <Link to="/login" className="text-light">
+              Login now!
             </Link>
           </div>
         </form>

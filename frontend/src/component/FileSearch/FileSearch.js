@@ -1,7 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import "./FileSearch.css";
+import { useDispatch, useSelector } from "react-redux";
+import { createRadio, searchRadios } from "../../Redux/actions/radioActions";
 
-function FileSearch() {
+const FileSearch = () => {
+  const dispatch = useDispatch();
+  const userId = useSelector((state) => state.auth.userId);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [formData, setFormData] = useState({
+    programme: "",
+    radioStation: "",
+    radioUrl: "",
+    radioImage: null,
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+    console.log(e.target.value);
+  };
+
+  const handleFormSubmit = () => {
+    dispatch(createRadio(userId, formData));
+  };
+
+  const handleSearchInput = (event) => {
+    const term = event.target.value;
+    setSearchTerm(term);
+    console.log("term", term);
+  };
+
+  const handleSearch = () => {
+    dispatch(searchRadios(searchTerm));
+  };
+
   return (
     <div className="container p-4 mb-4 rounded-3 ">
       <div className="row ">
@@ -31,8 +68,8 @@ function FileSearch() {
               boxShadow: "none",
               border: "none",
             }}
-            //  value={searchText}
-            //  onChange={handleInputChange}
+            value={searchTerm}
+            onChange={handleSearchInput}
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -41,6 +78,7 @@ function FileSearch() {
             fill="blue"
             class="bi bi-send-arrow-up-fill cursor"
             viewBox="0 0 16 16"
+            onClick={() => handleSearch()}
           >
             <path
               fill-rule="evenodd"
@@ -53,42 +91,42 @@ function FileSearch() {
           </svg>
         </div>
 
-        <div className="row justify-content-center">
-          <div className="col-auto d-block d-sm-none d-flex align-items-center input-search rounded-5">
-            <input
-              class="form-control input-search mx-2"
-              type="text"
-              aria-label="default input example"
-              placeholder="Search..."
-              style={{
-                backgroundColor: "transparent",
-                boxShadow: "none",
-                border: "none",
-              }}
-              //  value={searchText}
-              //  onChange={handleInputChange}
-            />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="blue"
-              class="bi bi-send-arrow-up-fill cursor"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M15.854.146a.5.5 0 0 1 .11.54L13.026 8.03A4.5 4.5 0 0 0 8 12.5c0 .5 0 1.5-.773.36l-1.59-2.498L.644 7.184l-.002-.001-.41-.261a.5.5 0 0 1 .083-.886l.452-.18.001-.001L15.314.035a.5.5 0 0 1 .54.111M6.637 10.07l7.494-7.494.471-1.178-1.178.471L5.93 9.363l.338.215a.5.5 0 0 1 .154.154z"
+        {/* <div className="row justify-content-center">
+            <div className="col-auto d-block d-sm-none d-flex align-items-center input-search rounded-5">
+              <input
+                class="form-control input-search mx-2"
+                type="text"
+                aria-label="default input example"
+                placeholder="Search..."
+                style={{
+                  backgroundColor: "transparent",
+                  boxShadow: "none",
+                  border: "none",
+                }}
+                //  value={searchText}
+                //  onChange={handleInputChange}
               />
-              <path
-                fill-rule="evenodd"
-                d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.354a.5.5 0 0 0-.722.016l-1.149 1.25a.5.5 0 1 0 .737.676l.28-.305V14a.5.5 0 0 0 1 0v-1.793l.396.397a.5.5 0 0 0 .708-.708z"
-              />
-            </svg>
-          </div>
-        </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="blue"
+                class="bi bi-send-arrow-up-fill cursor"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M15.854.146a.5.5 0 0 1 .11.54L13.026 8.03A4.5 4.5 0 0 0 8 12.5c0 .5 0 1.5-.773.36l-1.59-2.498L.644 7.184l-.002-.001-.41-.261a.5.5 0 0 1 .083-.886l.452-.18.001-.001L15.314.035a.5.5 0 0 1 .54.111M6.637 10.07l7.494-7.494.471-1.178-1.178.471L5.93 9.363l.338.215a.5.5 0 0 1 .154.154z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.354a.5.5 0 0 0-.722.016l-1.149 1.25a.5.5 0 1 0 .737.676l.28-.305V14a.5.5 0 0 0 1 0v-1.793l.396.397a.5.5 0 0 0 .708-.708z"
+                />
+              </svg>
+            </div>
+          </div> */}
       </div>
-      {/* ---------------------MODAL---------------------------- */}
+      {/* ---------------------MODAL-create---------------------------- */}
       <div
         className="modal fade "
         id="exampleModal"
@@ -110,8 +148,12 @@ function FileSearch() {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">
-              <form>
+            <form
+              className="needs-validation"
+              novalidate
+              onSubmit={handleFormSubmit}
+            >
+              <div className="modal-body">
                 <div class="form-group  mt-4">
                   <label
                     for="formGroupExampleInput"
@@ -124,7 +166,11 @@ function FileSearch() {
                     type="text"
                     class="form-control "
                     id="formGroupExampleInput"
+                    aria-describedby="inputGroupPrepend"
                     placeholder="Utopia"
+                    value={formData.programme}
+                    onChange={handleInputChange}
+                    required
                   />
                 </div>
                 <div class="form-group  mt-4">
@@ -139,7 +185,11 @@ function FileSearch() {
                     type="text"
                     class="form-control fws-bold"
                     id="formGroupExampleInput2"
+                    aria-describedby="inputGroupPrepend"
                     placeholder="Freshco Fm"
+                    value={formData.radioStation}
+                    onChange={handleInputChange}
+                    required
                   />
                 </div>
                 <div class="form-group mt-4"></div>
@@ -151,11 +201,15 @@ function FileSearch() {
                     Radio Url{" "}
                   </label>
                   <input
-                    name="radioStation"
+                    name="radioUrl"
                     type="url"
                     class="form-control fws-bold"
-                    id="formGroupExampleInput2"
+                    id="formGroupExampleInput3"
+                    aria-describedby="inputGroupPrepend"
                     placeholder="htttp://radio.com"
+                    value={formData.radioUrl}
+                    onChange={handleInputChange}
+                    required
                   />
                 </div>
                 <div class="form-group  mt-4">
@@ -166,41 +220,43 @@ function FileSearch() {
                     {" "}
                     Radio Image{" "}
                   </label>
-                  <div class="input-group mb-3 d-flex justify-content-between ">
-                    <div class="custom-file  mb-4  rounded d-flex justify-content-between">
-                      <input
-                        type="file"
-                        class=" form-control custom-file-input "
-                        id="inputGroupFile02"
-                        accept="image/*"
-                      />
-                    </div>
-                    <div class="input-group-append">
-                      <button type="button" class="btn btn-primary ">
-                        Upload
-                      </button>
-                    </div>
-                  </div>
+                  {/* <div class="input-group mb-3 d-flex justify-content-between ">
+                      <div class="custom-file  mb-4  rounded d-flex justify-content-between">
+                        <input
+                          type="file"
+                          class=" form-control custom-file-input "
+                          id="inputGroupFile02"
+                          aria-describedby="inputGroupPrepend"
+                          accept="image/*"
+                          required
+                        />
+                      </div>
+                      <div class="input-group-append">
+                        <button type="button" class="btn btn-primary ">
+                          Upload
+                        </button>
+                      </div>
+                    </div> */}
                 </div>
-              </form>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-primary">
-                Save
-              </button>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-            </div>
+              </div>
+              <div className="modal-footer">
+                <button type="submit" className="btn btn-primary">
+                  Save
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default FileSearch;

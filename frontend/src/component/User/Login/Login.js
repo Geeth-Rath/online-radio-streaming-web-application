@@ -1,90 +1,80 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../../Header/Header";
-import "./Login.css";
-// import { useDispatch, useSelector } from "react-redux";
-// import { fetchAllUsers } from "../Redux/Slice/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../../Redux/actions/authActions";
 
 const Login = () => {
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // const users = useSelector((state) => state.user.data);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  // const [formdata, setFormdata] = useState({
-  //   username: "",
-  //   password: "",
-  // });
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
 
-  // useEffect(() => {
-  //   dispatch(fetchAllUsers());
-  // }, [dispatch]);
+  const handleChange = (e) => {
+    console.log("formData", formData);
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  // const handlesubmit = () => {
-  //   const existingUser = users.find(
-  //     (user) =>
-  //       user.username === formdata.username &&
-  //       user.password === formdata.password
-  //   );
-  //   console.log("existingUser", existingUser);
-  //   if (existingUser) {
-  //     console.log("Login successful.");
-  //     navigate("/content");
-  //   } else {
-  //     alert("Invalide Username or Password. Please try again.");
-  //     console.log("Invalid username or password");
-  //   }
-  // };
-
-  // const onChangeHandle = (e) => {
-  //   setFormdata({
-  //     ...formdata,
-  //     [e.target.name]: e.target.value,
-  //   });
-  //   console.log(formdata);
-  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await dispatch(loginUser(formData, navigate));
+    } catch (error) {
+      alert("Login failed. Please try again.");
+      console.error("Error during login:", error);
+    }
+  };
 
   return (
     <div className="d-flex justify-content-center align-items-center">
       <div className="row min-vh-100 d-flex justify-content-center align-items-center ">
-      <Header showLogout={false} />
+        <Header showLogout={false} />
         <form
-          class=" rounded shadow p-5 user-login "
-          // style={{
-          //     marginTop:"-208px"
-          // }}
-          // onSubmit={handlesubmit}
+          onSubmit={handleSubmit}
+          className="rounded shadow p-5 user-login needs-validation"
+          novalidate
         >
           <h3>Login</h3>
-          <div class="form-row ">
-            <div class="form-group mt-4">
+          <div className="form-row">
+            <div className="form-group mt-4 has-validation">
               <input
                 type="text"
                 name="username"
-                // value={formdata.username}
-                class="form-control"
-                id="inputUserName"
+                value={formData.username}
+                className="form-control required"
+                id="validationCustomUsername"
+                aria-describedby="inputGroupPrepend"
+                required
                 placeholder="User Name"
-                // onChange={onChangeHandle}
+                onChange={handleChange}
               />
+              <div class="invalid-feedback">Username is required.</div>
             </div>
 
-            <div class="form-group mt-4 ">
+            <div className="form-group mt-4 has-validation">
               <input
                 type="password"
                 name="password"
-                // value={formdata.password}
-                class="form-control"
-                id="inputpassword"
+                value={formData.password}
+                className="form-control required"
+                id="validationCustomPassword"
+                aria-describedby="inputGroupPrepend"
+                required
                 placeholder="Password"
-                autocomplete="false"
-                // onChange={onChangeHandle}
+                autoComplete="false"
+                onChange={handleChange}
               />
+              <div class="invalid-feedback">Password is required</div>
             </div>
           </div>
 
-          <div class="d-grid mt-4">
-            <button type="submit" class="btn btn-primary">
+          <div className="d-grid mt-4">
+            <button type="submit" className="btn btn-primary">
               Login
             </button>
           </div>

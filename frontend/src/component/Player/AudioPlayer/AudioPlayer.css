@@ -1,32 +1,23 @@
 @media (max-width: 780px) {
-    #Audio_player{
-        width: 100%;
-        height: 40px;
-    }
+  #Audio_player {
+    width: 100%;
+    height: 40px;
+  }
 }
 @media (min-width: 780px) {
-    #Audio_player{
-        width: 50%;
-    }
+  #Audio_player {
+    width: 50%;
+  }
 }
 
-
-/* For small and medium screen sizes */
 @media (max-width: 992px) {
-    #QnA_head {
-      width: 200px;
-    }
- 
+  #QnA_head {
+    width: 200px;
   }
-  
-  /* For large screen sizes */
-  @media (min-width: 992px) {
-    #QnA_head {
-      width: 300px;
-    }
-  
+}
+
+@media (min-width: 992px) {
+  #QnA_head {
+    width: 300px;
   }
-
-
-
-  
+}

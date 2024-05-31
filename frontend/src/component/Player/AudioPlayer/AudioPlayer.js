@@ -1,45 +1,44 @@
-import React,{useState} from "react";
+import React, { useEffect, useRef } from "react";
 import radioParadiswe from "../radioParadiswe.jpeg";
-import tamilsong from "../tamilsong.mp3"
-import ReactAudioPlayer from 'react-audio-player';
-import './AudioPlayer.css'
-
+import { useSelector } from "react-redux";
+import "./AudioPlayer.css";
 
 const AudioPlayer = () => {
-  // const [currentTime, setCurrentTime] = useState(0);
-  // const [duration, setDuration] = useState(0);
+  const currentRadio = useSelector((state) => state.radio.currentRadio);
+  const isPlaying = useSelector((state) => state.radio.isPlaying);
+  const audioRef = useRef(null);
 
-  // const handleListen = (e) => {
-  //   setCurrentTime(e.target.currentTime);
-  //   setDuration(e.target.duration);
-  // };
+  useEffect(() => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.play();
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  }, [isPlaying, currentRadio]);
+
   return (
     <div className="container">
-    <div className="row mb-4" >
-      <img
-        src={radioParadiswe}
-        alt="QnA_head"
-        id="QnA_head"
-        className="music-icon mx-auto d-block "
-        // style={{ width: "200px" }}
-      />
+      <div className="row mb-4">
+        <img
+          src={radioParadiswe}
+          alt="QnA_head"
+          id="QnA_head"
+          className="music-icon mx-auto d-block "
+        />
+      </div>
+      <div className="row d-flex justify-content-center mb-5">
+        <audio
+          src={currentRadio?.radioUrl || ""}
+          controls
+          className=""
+          id="Audio_player"
+          autoPlay={isPlaying}
+          ref={audioRef}
+        />
+      </div>
     </div>
-    <div className="row d-flex justify-content-center mb-5">
-      {/* <div className="container"> */}
-    <ReactAudioPlayer
-      src={tamilsong}
-      controls
-      className=""
-      id='Audio_player'
-      // style={{ width: "50%" }}
-      // autoPlay
-      // onListen={handleListen}
-    />
-    {/* </div> */}
-    {/* <p>Current Time: {currentTime.toFixed(2)}</p>
-      <p>Total Duration: {duration.toFixed(2)}</p> */}
-    </div>
-  </div>
   );
 };
 
